@@ -11,8 +11,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Ensure the STABILITY_KEY environment variable is set
-if 'STABILITY_KEY' not in os.environ:
-    raise KeyError("STABILITY_KEY environment variable not found. Please set it in your .env file or environment.")
+# if 'STABILITY_KEY' not in os.environ:
+#     raise KeyError("STABILITY_KEY environment variable not found. Please set it in your .env file or environment.")
 
 # Set Stability host
 os.environ['STABILITY_HOST'] = 'grpc.stability.ai:443'
