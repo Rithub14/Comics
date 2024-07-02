@@ -1,11 +1,14 @@
 
 import re
+from dotenv import load_dotenv
 
 from langchain_community.chat_models import ChatOpenAI
 from langchain.prompts.chat import (
     ChatPromptTemplate,
     HumanMessagePromptTemplate,
 )
+
+load_dotenv()
 
 template = """
 You are a cartoon creator.
