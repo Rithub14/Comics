@@ -10,7 +10,7 @@ from create_strip import create_strip
 
 def main():
     st.title("Comic Strip Generator")
-
+    st.subheader("Please enter the details on the left to create a comic strip.")
     st.sidebar.header("Enter Scenario and Style")
     
     # Input for number of characters
