@@ -1,11 +1,17 @@
 import re
-from dotenv import load_dotenv
 import os
-
+from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
 
 load_dotenv()
+
+# Retrieve the OpenAI API key from environment variable
+openai_api_key = os.getenv("OPENAI_API_KEY")
+if not openai_api_key:
+    raise ValueError("OpenAI API key not found in environment variables")
+
+print('-'*10, openai_api_key, '-'*10)
 
 template = """
 You are a cartoon creator.
@@ -45,17 +51,16 @@ Split the scenario in 6 parts:
 """
 
 def generate_panels(scenario):
-    model = ChatOpenAI(model_name='gpt-3.5-turbo', openai_api_key=os.getenv("OPENAI_API_KEY"))
+    model = ChatOpenAI(model_name='gpt-3.5-turbo')
 
+    # Assuming template is defined elsewhere in your code
     human_message_prompt = HumanMessagePromptTemplate.from_template(template)
-
     chat_prompt = ChatPromptTemplate.from_messages([human_message_prompt])
 
     formatted_messages = chat_prompt.format_messages(scenario=scenario)
-
     result = model.invoke(formatted_messages)
 
-    print(result.content)
+    print(result.content)  # For debugging purposes
 
     return extract_panel_info(result.content)
 
@@ -70,17 +75,23 @@ def extract_panel_info(text):
             # Extracting panel number
             panel_number = re.search(r'\d+', block)
             if panel_number is not None:
-                panel_info['number'] = panel_number.group()
+                panel_info['number'] = int(panel_number.group())
             
             # Extracting panel description
             panel_description = re.search(r'description: (.+)', block)
             if panel_description is not None:
-                panel_info['description'] = panel_description.group(1)
+                panel_info['description'] = panel_description.group(1).strip()
             
             # Extracting panel text
-            panel_text = re.search(r'text:\n```\n(.+)\n```', block, re.DOTALL)
+            panel_text = re.search(r'text:\n```\n(.+?)\n```', block, re.DOTALL)
             if panel_text is not None:
-                panel_info['text'] = panel_text.group(1)
+                panel_info['text'] = panel_text.group(1).strip()
+            
+            # Check if 'description' and 'text' keys are present
+            if 'description' not in panel_info:
+                panel_info['description'] = "Description missing"
+            if 'text' not in panel_info:
+                panel_info['text'] = "Text missing"
             
             panel_info_list.append(panel_info)
     return panel_info_list
