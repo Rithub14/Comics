@@ -10,7 +10,7 @@ This program uses Generative AI to create an entire comic strip from a short sce
     - Select the desired comic style from various options (Superhero Style, Manga, Cartoon/Cartoony Style, European/Franco-Belgian Style, Noir/Pulp Style, Indie/Alternative Style, Western Style, Chibi Style, Realistic Style, Webtoon Style).
 
 2. **Panel Generation**: 
-    - A Large Language Model (LLM, OpenAI API) is used to split the scenario into 6 panels, each with its own description and associated text.
+    - A Large Language Model (OpenAI API) is used to split the scenario into 6 panels, each with its own description and associated text.
 
 3. **Image Generation**: 
     - For each panel, an image is generated using Stable Diffusion (Stability API).
