@@ -1,12 +1,9 @@
-
 import re
 from dotenv import load_dotenv
+import os
 
-from langchain_community.chat_models import ChatOpenAI
-from langchain.prompts.chat import (
-    ChatPromptTemplate,
-    HumanMessagePromptTemplate,
-)
+from langchain_openai import ChatOpenAI
+from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
 
 load_dotenv()
 
@@ -48,15 +45,15 @@ Split the scenario in 6 parts:
 """
 
 def generate_panels(scenario):
-    model = ChatOpenAI(model_name='gpt-3.5-turbo')
+    model = ChatOpenAI(model_name='gpt-3.5-turbo', openai_api_key=os.getenv("OPENAI_API_KEY"))
 
     human_message_prompt = HumanMessagePromptTemplate.from_template(template)
 
     chat_prompt = ChatPromptTemplate.from_messages([human_message_prompt])
 
-    chat_prompt.format_messages(scenario=scenario)
+    formatted_messages = chat_prompt.format_messages(scenario=scenario)
 
-    result = model(chat_prompt.format_messages(scenario=scenario))
+    result = model.invoke(formatted_messages)
 
     print(result.content)
 
