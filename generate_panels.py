@@ -1,7 +1,7 @@
 
 import re
 
-from langchain.chat_models import ChatOpenAI
+from langchain_community.chat_models import ChatOpenAI
 from langchain.prompts.chat import (
     ChatPromptTemplate,
     HumanMessagePromptTemplate,
@@ -45,7 +45,7 @@ Split the scenario in 6 parts:
 """
 
 def generate_panels(scenario):
-    model = ChatOpenAI(model_name='gpt-4')
+    model = ChatOpenAI(model_name='gpt-3.5-turbo')
 
     human_message_prompt = HumanMessagePromptTemplate.from_template(template)
 
