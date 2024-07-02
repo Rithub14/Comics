@@ -1,4 +1,7 @@
 langchain
 langchain-community
+langchain_community
 streamlit
 stability_sdk
+Pillow==9.5.0
+python-dotenv
