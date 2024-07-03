@@ -21,4 +21,4 @@ This program uses Generative AI to create an entire comic strip from a short sce
     - The final comic strip can be viewed and downloaded directly from the application.
 
 ## App URL
-- Access the application at: [https://comics-ai.streamlit.app/]
+- Access the application at: [https://comics-ai.onrender.com/]
