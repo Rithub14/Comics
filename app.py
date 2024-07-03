@@ -19,23 +19,26 @@ def main():
     # Inputs for character descriptions
     characters = []
     for i in range(num_characters):
-        character_name = st.sidebar.text_input(f"Character {i+1} Name", f"Character {i+1}")
-        character_description = st.sidebar.text_area(f"Character {i+1} Description", f"Description of Character {i+1}")
+        character_name = st.sidebar.text_input(f"Character {i+1} Name", placeholder=f"Character {i+1}")
+        character_description = st.sidebar.text_area(
+            f"Character {i+1} Description", 
+            placeholder=f"Description of Character {i+1}"
+        )
         characters.append(f"{character_name} is {character_description}")
 
     # Combine character descriptions into the scenario
-    scenario = st.sidebar.text_area("Scenario", "Describe the scenario here.")
+    scenario = st.sidebar.text_area("Scenario", placeholder="Describe the scenario here.")
     full_scenario = "Characters: " + ". ".join(characters) + ". " + scenario
 
-    Style = st.sidebar.selectbox("Style", ["Superhero Style", "Manga", "Cartoon/Cartoony Style", "European/Franco-Belgian Style", "Noir/Pulp Style", "Indie/Alternative Style", "Western Style", "Chibi Style", "Realistic Style", "Webtoon Style"])
+    style = st.sidebar.selectbox("Style", ["Superhero Style", "Manga", "Cartoon/Cartoony Style", "European/Franco-Belgian Style", "Noir/Pulp Style", "Indie/Alternative Style", "Western Style", "Chibi Style", "Realistic Style", "Webtoon Style"])
 
     if st.sidebar.button("Generate Comic Strip"):
-        generate_comic_strip(full_scenario, Style)
+        generate_comic_strip(full_scenario, style)
 
-def generate_comic_strip(Scenario, Style):
-    st.write(f"Generating panels with Style: '{Style}.'\n")
+def generate_comic_strip(scenario, style):
+    st.write(f"Generating panels with Style: '{style}.'\n")
 
-    panels = generate_panels(Scenario)
+    panels = generate_panels(scenario)
 
     with open('output/panels.json', 'w') as outfile:
         json.dump(panels, outfile)
@@ -46,7 +49,7 @@ def generate_comic_strip(Scenario, Style):
     total_panels = len(panels)
 
     for i, panel in enumerate(panels):
-        panel_prompt = panel["description"] + ", cartoon box, " + Style
+        panel_prompt = panel["description"] + ", cartoon box, " + style
         try:
             panel_image = text_to_image(panel_prompt)
         except Exception as e:
