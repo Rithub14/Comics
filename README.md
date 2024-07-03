@@ -19,3 +19,6 @@ This program uses Generative AI to create an entire comic strip from a short sce
 4. **Final Strip Creation**: 
     - The 6 generated images with their texts are merged into a final comic strip.
     - The final comic strip can be viewed and downloaded directly from the application.
+
+## App URL
+- Access the application at: [https://comics-ai.streamlit.app/]
